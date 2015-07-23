@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressBar">
+        <attr name="initialStage" format="integer"/>
+        <attr name="draggableMarkers" format="boolean"/>
+        <attr name="lightColor" format="color"/>
+        <attr name="darkColor" format="color"/>
+        <attr name="divisions" format="integer"/>
+        <attr name="markerCentered" format="boolean"/>
+        <attr name="markerRelativeVerticalDeviation" format="float"/>
+        <attr name="orderOfPositions" format="reference"/>
+        <attr name="orderOfDrawables" format="reference"/>
+    </declare-styleable>
+</resources>

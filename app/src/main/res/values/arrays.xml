@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="orderOfPositions">
+        <item>0</item>
+        <item>0</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </integer-array>
+
+    <string-array name="orderOfDrawables">
+        <item>@drawable/progress_marker_blue</item>
+        <item>@drawable/progress_marker_green</item>
+        <item>@drawable/progress_marker_green</item>
+        <item>@drawable/progress_marker_green</item>
+        <item>@drawable/progress_marker_green</item>
+        <item>@drawable/progress_marker_yellow</item>
+        <item>@drawable/progress_marker_red</item>
+    </string-array>
+</resources>

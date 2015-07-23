@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Progress Bar</string>
+
+    <string name="back">BACK</string>
+    <string name="forward">FORWARD</string>
+    <string name="reset">RESET</string>
+</resources>
