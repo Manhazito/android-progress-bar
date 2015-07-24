@@ -7,25 +7,37 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <org.gamaworks.progressbar.ProgressBar
-        android:id="@+id/deliveryProgressBar"
+    <TextView
+        android:id="@+id/progressLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        tools:text="Moved to..."/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="------------//------------"
+        tools:ignore="HardcodedText"/>
+
+    <org.gamaworks.progressbar.ProgressBar
+        android:id="@+id/deliveryProgressBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        bar:showSubdivisionDents="true"
-        bar:subdivisionDentsSmaller="false"
-        />
+        android:paddingRight="8dp"/>
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnBack"
+            android:id="@+id/btnBack1"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +45,7 @@
             android:text="@string/back"/>
 
         <Button
-            android:id="@+id/btnReset"
+            android:id="@+id/btnReset1"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,7 +53,7 @@
             android:text="@string/reset"/>
 
         <Button
-            android:id="@+id/btnForward"
+            android:id="@+id/btnForward1"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,9 +62,157 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/progressLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
-        tools:text="Progress!"/>
+        android:text="------------//------------"
+        tools:ignore="HardcodedText"/>
+
+    <org.gamaworks.progressbar.ProgressBar
+        android:id="@+id/deliveryProgressBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        bar:divisions="10"
+        bar:initialStage="15"
+        bar:markerCentered="false"
+        bar:markerVerticalDeviation="-50"
+        bar:showSubdivisionDents="true"/>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBack2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/back"/>
+
+        <Button
+            android:id="@+id/btnReset2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reset"/>
+
+        <Button
+            android:id="@+id/btnForward2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/forward"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="------------//------------"
+        tools:ignore="HardcodedText"/>
+
+    <org.gamaworks.progressbar.ProgressBar
+        android:id="@+id/deliveryProgressBar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        bar:darkColor="@android:color/black"
+        bar:draggableMarkers="false"
+        bar:lightColor="@android:color/darker_gray"
+        bar:orderOfDrawables="@array/orderOfDrawables"
+        bar:orderOfPositions="@array/orderOfPositions"
+        bar:showSubdivisionDents="true"
+        bar:subdivisionDentsSmaller="false"/>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBack3"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/back"/>
+
+        <Button
+            android:id="@+id/btnReset3"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reset"/>
+
+        <Button
+            android:id="@+id/btnForward3"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/forward"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="------------//------------"
+        tools:ignore="HardcodedText"/>
+
+    <org.gamaworks.progressbar.ProgressBar
+        android:id="@+id/deliveryProgressBar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        bar:darkColor="@android:color/holo_blue_dark"
+        bar:defaultMarker="@drawable/progress_marker_map"
+        bar:lightColor="@android:color/holo_orange_light"
+        bar:markerCentered="false"
+        bar:orderOfPositions="@array/orderOfPositions"
+        bar:showSubdivisionDents="true"
+        bar:subdivisionDentsSmaller="false"/>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBack4"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/back"/>
+
+        <Button
+            android:id="@+id/btnReset4"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reset"/>
+
+        <Button
+            android:id="@+id/btnForward4"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/forward"/>
+    </LinearLayout>
+
 </LinearLayout>

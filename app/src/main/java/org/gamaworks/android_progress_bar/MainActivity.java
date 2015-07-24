@@ -12,7 +12,9 @@ public class MainActivity extends AppCompatActivity implements ProgressBar.Progr
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private ProgressBar progressBar;
+    private ProgressBar progressBar1;
+    private ProgressBar progressBar2;
+    private ProgressBar progressBar3;
     private TextView progressLabel;
 
     @Override
@@ -20,36 +22,84 @@ public class MainActivity extends AppCompatActivity implements ProgressBar.Progr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = (ProgressBar) findViewById(R.id.deliveryProgressBar);
-        progressBar.canSetManually(true);
-        Button btnBack = (Button) findViewById(R.id.btnBack);
-        Button btnForward = (Button) findViewById(R.id.btnForward);
-        Button btnReset = (Button) findViewById(R.id.btnReset);
-        progressLabel = (TextView) findViewById(R.id.progressLabel);
-        progressLabel.setText("Stage: " + progressBar.getProgressStage());
+        progressBar1 = (ProgressBar) findViewById(R.id.deliveryProgressBar1);
+        Button btnBack1 = (Button) findViewById(R.id.btnBack1);
+        Button btnForward1 = (Button) findViewById(R.id.btnForward1);
+        Button btnReset1 = (Button) findViewById(R.id.btnReset1);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.goBackward();
+                progressBar1.goBackward();
             }
         });
-        btnForward.setOnClickListener(new View.OnClickListener() {
+        btnForward1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.goForward();
+                progressBar1.goForward();
             }
         });
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        btnReset1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setProgressStage(0);
+                progressBar1.setProgressStage(0);
             }
         });
+
+        progressBar2 = (ProgressBar) findViewById(R.id.deliveryProgressBar2);
+        Button btnBack2 = (Button) findViewById(R.id.btnBack2);
+        Button btnForward2 = (Button) findViewById(R.id.btnForward2);
+        Button btnReset2 = (Button) findViewById(R.id.btnReset2);
+
+        btnBack2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar2.goBackward();
+            }
+        });
+        btnForward2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar2.goForward();
+            }
+        });
+        btnReset2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar2.setProgressStage(5);
+            }
+        });
+
+        progressBar3 = (ProgressBar) findViewById(R.id.deliveryProgressBar3);
+        Button btnBack3 = (Button) findViewById(R.id.btnBack3);
+        Button btnForward3 = (Button) findViewById(R.id.btnForward3);
+        Button btnReset3 = (Button) findViewById(R.id.btnReset3);
+
+        btnBack3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar3.goBackward();
+            }
+        });
+        btnForward3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar3.goForward();
+            }
+        });
+        btnReset3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar3.setProgressStage(0);
+            }
+        });
+
+        progressLabel = (TextView) findViewById(R.id.progressLabel);
+        progressLabel.setText("All quiet!");
     }
 
     @Override
-    public void progressChanged() {
-        progressLabel.setText("Stage: " + progressBar.getProgressStage());
+    public void progressChanged(ProgressBar progressBar) {
+        progressLabel.setText("Moved to stage " + progressBar.getProgressStage());
     }
 }
