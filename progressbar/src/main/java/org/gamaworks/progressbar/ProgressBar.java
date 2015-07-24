@@ -50,6 +50,9 @@ public class ProgressBar extends View implements View.OnTouchListener {
     private float markerBaseY;
     private Path lightPath = new Path();
     private Path darkPath = new Path();
+    private boolean showDivisionDents = true;
+    private boolean showSubdivisionDents = false;
+    private boolean subdivisionDentsSmaller = true;
 
     private boolean isBeingDragged = false;
     private boolean canSetManually = false;
@@ -64,6 +67,7 @@ public class ProgressBar extends View implements View.OnTouchListener {
             progressStage = 2;
             numberOfDivisions = 4;
             numberOfDents = numberOfDivisions + 1;
+            numberOfPositions = (2 * numberOfDivisions) + 1;
             markerCenteredOnBase = true;
             markerRelativeVerticalDeviation = 0;
             orderOfPositions = new int[]{0, 0, 2, 4, 6, 7, 8, 8, 8, 8};
@@ -80,31 +84,38 @@ public class ProgressBar extends View implements View.OnTouchListener {
                     BitmapFactory.decodeResource(getResources(), R.drawable.progress_marker_blue)
             };
         } else {
-            TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                    R.styleable.ProgressBar, 0, 0);
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProgressBar, 0, 0);
             progressStage = typedArray.getInteger(R.styleable.ProgressBar_initialStage, 0);
             lightColor = typedArray.getColor(R.styleable.ProgressBar_lightColor, lightColor);
             darkColor = typedArray.getColor(R.styleable.ProgressBar_darkColor, darkColor);
             numberOfDivisions = typedArray.getInt(R.styleable.ProgressBar_divisions, 4);
             numberOfDents = numberOfDivisions + 1;
+            numberOfPositions = (2 * numberOfDivisions) + 1;
             markerCenteredOnBase = typedArray.getBoolean(R.styleable.ProgressBar_markerCentered, true);
             markerRelativeVerticalDeviation = typedArray.getFloat(R.styleable.ProgressBar_markerRelativeVerticalDeviation, 0f);
-            orderOfPositions = getResources().getIntArray(typedArray.getResourceId(R.styleable.ProgressBar_orderOfPositions, 0));
-            TypedArray orderOfDrawables = getResources().obtainTypedArray(typedArray.getResourceId(
-                    R.styleable.ProgressBar_orderOfDrawables, 0));
+            int orderOfPositionsResourceId = typedArray.getResourceId(R.styleable.ProgressBar_orderOfPositions, 0);
+            if (orderOfPositionsResourceId > 0) orderOfPositions = getResources().getIntArray(orderOfPositionsResourceId);
+            else generateOrderOfPositions();
             orderOfDrawableBitmaps = new Bitmap[orderOfPositions.length];
-            for (int i = 0; i < orderOfDrawableBitmaps.length; i++) {
-                orderOfDrawableBitmaps[i] = BitmapFactory.decodeResource(getResources(),
-                        orderOfDrawables.getResourceId(i, 0));
+            TypedArray orderOfDrawables = null;
+            int orderOfDrawablesResourceId = typedArray.getResourceId(R.styleable.ProgressBar_orderOfDrawables, 0);
+            if (orderOfDrawablesResourceId > 0) {
+                orderOfDrawables = getResources().obtainTypedArray(orderOfDrawablesResourceId);
+                for (int i = 0; i < orderOfDrawableBitmaps.length; i++) {
+                    orderOfDrawableBitmaps[i] = BitmapFactory.decodeResource(getResources(),
+                            orderOfDrawables.getResourceId(i, 0));
+                }
             }
+            showDivisionDents = typedArray.getBoolean(R.styleable.ProgressBar_showDivisionDents, true);
+            showSubdivisionDents = typedArray.getBoolean(R.styleable.ProgressBar_showSubdivisionDents, false);
+            subdivisionDentsSmaller = typedArray.getBoolean(R.styleable.ProgressBar_subdivisionDentsSmaller, true);
 
             typedArray.recycle();
-            orderOfDrawables.recycle();
-        }
+            if (orderOfDrawables != null) orderOfDrawables.recycle();
 
-        numberOfPositions = Math.min(Math.min((2 * numberOfDivisions) + 1, orderOfDrawableBitmaps.length), orderOfPositions.length);
-        clipOrderOfPositions();
-        completeBitmapArray();
+            clipOrderOfPositions();
+            completeBitmapArray();
+        }
 
         lightBasePaint.setStrokeWidth(baseStrokeWidth * density);
         lightBasePaint.setColor(lightColor);
@@ -194,34 +205,68 @@ public class ProgressBar extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
         if (lightPath != null && darkPath != null) {
-            int dentHeight = 4;
-
-            canvas.drawLine(baseStartPadding, baseY, getWidth() - baseEndPadding, baseY, lightBasePaint);
-
-            for (int i = 0; i < possiblePositionsX.length; i += 2) {
-                float startY = baseY - ((baseStrokeWidth / 2) * density);
-                float endY = startY - (dentHeight * density);
-                canvas.drawLine(possiblePositionsX[i], startY,
-                        possiblePositionsX[i], endY, lightDentPaint);
-            }
-
+            int divisionDentsHeight = 4;
+            int subdivisionDentsHeight = subdivisionDentsSmaller ? divisionDentsHeight / 2 : divisionDentsHeight;
             int stepIndex = orderOfPositions[progressStage];
 
+            // Base line
+            canvas.drawLine(baseStartPadding, baseY, getWidth() - baseEndPadding, baseY, lightBasePaint);
+
+            // Major dents
+            if (showDivisionDents) {
+                for (int i = 0; i < possiblePositionsX.length; i += 2) {
+                    float startY = baseY - ((baseStrokeWidth / 2) * density);
+                    float endY = startY - (divisionDentsHeight * density);
+                    canvas.drawLine(possiblePositionsX[i], startY,
+                            possiblePositionsX[i], endY, lightDentPaint);
+                }
+            }
+
+            // Minor dents
+            if (showSubdivisionDents) {
+                for (int i = 1; i < possiblePositionsX.length; i += 2) {
+                    float startY = baseY - ((baseStrokeWidth / 2) * density);
+                    float endY = startY - (subdivisionDentsHeight * density);
+                    canvas.drawLine(possiblePositionsX[i], startY,
+                            possiblePositionsX[i], endY, lightDentPaint);
+                }
+            }
+
+            // Base line (dark)
             float endX = possiblePositionsX[stepIndex] - (density * dentStrokeWidth / 2);
             canvas.drawLine(baseStartPadding, baseY, endX, baseY, darkBasePaint);
 
-            for (int i = 0; i <= stepIndex; i += 2) {
-                if (i == numberOfDents) continue;
-                float startY = baseY - ((baseStrokeWidth / 2) * density);
-                float endY = startY - (dentHeight * density);
-                canvas.drawLine(possiblePositionsX[i], startY,
-                        possiblePositionsX[i], endY, darkDentPaint);
+            // Major dents (dark)
+            if (showDivisionDents) {
+                for (int i = 0; i <= stepIndex; i += 2) {
+                    if (i == numberOfDents) continue;
+                    float startY = baseY - ((baseStrokeWidth / 2) * density);
+                    float endY = startY - (divisionDentsHeight * density);
+                    canvas.drawLine(possiblePositionsX[i], startY,
+                            possiblePositionsX[i], endY, darkDentPaint);
+                }
             }
 
+            // Minor dents (dark)
+            if (showSubdivisionDents) {
+                for (int i = 1; i <= stepIndex; i += 2) {
+                    float startY = baseY - ((baseStrokeWidth / 2) * density);
+                    float endY = startY - (subdivisionDentsHeight * density);
+                    canvas.drawLine(possiblePositionsX[i], startY,
+                            possiblePositionsX[i], endY, darkDentPaint);
+                }
+            }
+
+            // Marker
             float bmpX = possiblePositionsX[stepIndex] -
                     (orderOfDrawableBitmaps[progressStage].getWidth() / 2);
             canvas.drawBitmap(orderOfDrawableBitmaps[progressStage], bmpX, markerBaseY, null);
         }
+    }
+
+    private void generateOrderOfPositions() {
+        orderOfPositions = new int[numberOfPositions];
+        for (int i = 0; i < orderOfPositions.length; i++) orderOfPositions[i] = i;
     }
 
     private void clipOrderOfPositions() {

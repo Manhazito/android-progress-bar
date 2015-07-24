@@ -1,6 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,11 +14,9 @@
         android:layout_marginTop="20dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        app:darkColor="@color/blue"
-        app:divisions="4"
-        app:lightColor="@color/blue_light"
-        app:orderOfDrawables="@array/orderOfDrawables"
-        app:orderOfPositions="@array/orderOfPositions"/>
+        bar:showSubdivisionDents="true"
+        bar:subdivisionDentsSmaller="false"
+        />
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"

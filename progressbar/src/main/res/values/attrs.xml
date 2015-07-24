@@ -8,6 +8,9 @@
         <attr name="divisions" format="integer"/>
         <attr name="markerCentered" format="boolean"/>
         <attr name="markerRelativeVerticalDeviation" format="float"/>
+        <attr name="showDivisionDents" format="boolean"/>
+        <attr name="showSubdivisionDents" format="boolean"/>
+        <attr name="subdivisionDentsSmaller" format="boolean"/>
         <attr name="orderOfPositions" format="reference"/>
         <attr name="orderOfDrawables" format="reference"/>
     </declare-styleable>
