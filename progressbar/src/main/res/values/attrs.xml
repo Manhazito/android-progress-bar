@@ -10,6 +10,7 @@
         <attr name="markerVerticalDeviation" format="integer"/>
         <attr name="showDivisionDents" format="boolean"/>
         <attr name="showSubdivisionDents" format="boolean"/>
+        <attr name="showExtremityDents" format="boolean"/>
         <attr name="subdivisionDentsSmaller" format="boolean"/>
         <attr name="defaultMarker" format="reference"/>
         <attr name="orderOfPositions" format="reference"/>

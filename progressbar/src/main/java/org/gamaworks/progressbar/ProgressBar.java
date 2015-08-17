@@ -49,6 +49,7 @@ public class ProgressBar extends View implements View.OnTouchListener {
     private float markerBaseY;
     private Path lightPath = new Path();
     private Path darkPath = new Path();
+    private boolean showExtremityDents = true;
     private boolean showDivisionDents = true;
     private boolean showSubdivisionDents = false;
     private boolean subdivisionDentsSmaller = true;
@@ -93,6 +94,7 @@ public class ProgressBar extends View implements View.OnTouchListener {
         draggableMarkers = typedArray.getBoolean(R.styleable.ProgressBar_draggableMarkers, true);
         showDivisionDents = typedArray.getBoolean(R.styleable.ProgressBar_showDivisionDents, true);
         showSubdivisionDents = typedArray.getBoolean(R.styleable.ProgressBar_showSubdivisionDents, false);
+        showExtremityDents = typedArray.getBoolean(R.styleable.ProgressBar_showExtremityDents, showDivisionDents);
         subdivisionDentsSmaller = typedArray.getBoolean(R.styleable.ProgressBar_subdivisionDentsSmaller, true);
 
         typedArray.recycle();
@@ -197,8 +199,9 @@ public class ProgressBar extends View implements View.OnTouchListener {
             canvas.drawLine(baseStartPadding, baseY, getWidth() - baseEndPadding, baseY, lightBasePaint);
 
             // Major dents
-            if (showDivisionDents) {
-                for (int i = 0; i < possiblePositionsX.length; i += 2) {
+            for (int i = 0; i < possiblePositionsX.length; i += 2) {
+                if ((i == 0 || i == (possiblePositionsX.length - 1)) && !showExtremityDents) continue;
+                if (showDivisionDents || ((i == 0 || i == (possiblePositionsX.length - 1)) && showExtremityDents)) {
                     float startY;
                     float endY;
                     if (markerVerticalDeviation < 0) {
@@ -233,9 +236,10 @@ public class ProgressBar extends View implements View.OnTouchListener {
             canvas.drawLine(baseStartPadding, baseY, endX, baseY, darkBasePaint);
 
             // Major dents (dark)
-            if (showDivisionDents) {
-                for (int i = 0; i <= stepIndex; i += 2) {
-                    if (i == numberOfDents) continue;
+            for (int i = 0; i <= stepIndex; i += 2) {
+                if (i == numberOfDents) continue;
+                if ((i == 0 || i == (possiblePositionsX.length - 1)) && !showExtremityDents) continue;
+                if (showDivisionDents || ((i == 0 || i == (possiblePositionsX.length - 1)) && showExtremityDents)) {
                     float startY;
                     float endY;
                     if (markerVerticalDeviation < 0) {

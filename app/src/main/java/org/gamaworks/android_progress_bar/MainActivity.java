@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity implements ProgressBar.Progr
     private ProgressBar progressBar1;
     private ProgressBar progressBar2;
     private ProgressBar progressBar3;
+    private ProgressBar progressBar4;
+    private ProgressBar progressBar5;
     private TextView progressLabel;
 
     @Override
@@ -91,6 +93,54 @@ public class MainActivity extends AppCompatActivity implements ProgressBar.Progr
             @Override
             public void onClick(View v) {
                 progressBar3.setProgressStage(0);
+            }
+        });
+
+        progressBar4 = (ProgressBar) findViewById(R.id.deliveryProgressBar4);
+        Button btnBack4 = (Button) findViewById(R.id.btnBack4);
+        Button btnForward4 = (Button) findViewById(R.id.btnForward4);
+        Button btnReset4 = (Button) findViewById(R.id.btnReset4);
+
+        btnBack4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar4.goBackward();
+            }
+        });
+        btnForward4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar4.goForward();
+            }
+        });
+        btnReset4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar4.setProgressStage(0);
+            }
+        });
+
+        progressBar5 = (ProgressBar) findViewById(R.id.deliveryProgressBar5);
+        Button btnBack5 = (Button) findViewById(R.id.btnBack5);
+        Button btnForward5 = (Button) findViewById(R.id.btnForward5);
+        Button btnReset5 = (Button) findViewById(R.id.btnReset5);
+
+        btnBack5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar5.goBackward();
+            }
+        });
+        btnForward5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar5.goForward();
+            }
+        });
+        btnReset5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar5.setProgressStage(0);
             }
         });
 
